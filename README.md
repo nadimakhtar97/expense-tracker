@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# REACT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## REACT STATE
 
-## Available Scripts
+vid no 04 react state and working 
 
-In the project directory, you can run:
+Each component is a function. On start of appliction react call each function untill no fuction is left.
+This is how react renders component on browser.
 
-### `yarn start`
+\<App/> --> \<Expenses/> --> \<ExpenseItem/> --> \<ExpenseDate>.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+if there are 4 instance of \<ExpenseItem/> then it will be called 4 times. we can verify by using `console.log("hello")`
+in that component fuction. "hello" will be printed 4 times.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+React calls each function only once. Now any event like button click happens in any component then, react is
+not going to call that component function again, react ignores it. So to tell react that the component should run again we use
+react hooks useState();
 
-### `yarn test`
+## useState()
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- creates a special variable. whose value on change can cause re-rendering of that component or it
+will tell react to re-run the component function.
 
-### `yarn build`
+- useState() wants a default state value. useState() creates a special variable and also returns a method which
+can cause change in the value of special variable.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- useState() create special variable in per component instance base. Meaning if there exits multiple instance of
+  a component then each instance will have its own state detached/independent of other instances i.e changing special
+  variable for one will not result in changed variable for others. we can verify by using `console.log("hello")` in
+  component function that when special variable is changed once then component function is re-rendered once.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- why are we using "const" in `const [title,setTitle] = useState(props.title);` if we want to change the value of title
+  variable? Actually we are not changing the value of title variable using '=' operator instead we use `setTitle()` method
+  to change value of title variable. So it is managed by react internally.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React keeps track of when a useState() is called for the first time.The default value of useState() hook is considered for first time only. From second re-render onward react takes care of the value of special variable.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+const [title,setTitle] = useState(props.title);
+// props.title is default value of the special variable which is required by the useState() hook/function.
+// title is the special variable that useState() hook returns.
+// setTitle is a method returned by the useState that can change the value of special variable.
+```
