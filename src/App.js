@@ -1,34 +1,43 @@
-import Expenses from "./components/Expenses/Expenses";
-import React from "react";
-import NewExpense from "./components/NewExpense/NewExpense";
+import Expenses from "./components/Expenses/Expenses/Expenses";
+import React, { useState } from "react";
+import NewExpense from "./components/NewExpense/NewExpense/NewExpense";
+
+const INTITIAL_EXPENSES = [
+  {
+    id: "e1",
+    date: new Date(2020, 8, 25),
+    title: "Car Insurance",
+    price: 200,
+  },
+  {
+    id: "e2",
+    date: new Date(2021, 2, 28),
+    title: "Book",
+    price: 300,
+  },
+  {
+    id: "e3",
+    date: new Date(2022, 3, 21),
+    title: "Grocery",
+    price: 150,
+  },
+
+  {
+    id: "e4",
+    date: new Date(2019, 6, 12),
+    title: "Travel",
+    price: 250,
+  },
+];
 
 const App = () => {
-  const expenses = [
-    {
-      id: "e1",
-      date: new Date(2020, 2, 28),
-      title: "Car Insurance",
-      price: 200,
-    },
-    {
-      id: "e2",
-      date: new Date(2021, 2, 28),
-      title: "Car Insurance",
-      price: 300,
-    },
-    {
-      id: "e3",
-      date: new Date(2022, 2, 28),
-      title: "Car Insurance",
-      price: 500,
-    },
-    {
-      id: "e3",
-      date: new Date(2023, 2, 28),
-      title: "Car Insurance",
-      price: 400,
-    },
-  ];
+  const [expenses, setExpenses] = useState(INTITIAL_EXPENSES);
+
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => {
+      return [expense, ...expenses];
+    });
+  };
 
   /* This javascript equivalent code for JSX
     React under the hood converts JSX in this format
@@ -44,7 +53,8 @@ const App = () => {
 
   return (
     <div>
-      <NewExpense/>
+      {/* "LIFTING THE STATE UP" */}
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );

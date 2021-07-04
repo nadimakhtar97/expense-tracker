@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   /* 
         This is multiple state concept :
         we can independently initialize multiple states and manage them.
@@ -111,7 +111,14 @@ const ExpenseForm = () => {
       price: enteredPrice,
       date: new Date(enteredDate),
     };
-    console.log(expenseData);
+
+    /*
+      expenseData is required in App.js component.
+      We know that we can send data from parent to child by using props.
+      But how to send data from "child to parent" ?
+      Here is a technique.
+     */
+    props.onSaveExpenseData(expenseData); // for passing data from child to parent. or it is called "LIFTING THE STATE UP"
 
     setEnteredTitle(""); // for two way binding --> set the value of input filed to empty after form is submited;
     setEnteredPrice(""); // for two way binding --> set the value of input filed to empty after form is submited;
@@ -123,10 +130,11 @@ const ExpenseForm = () => {
       <div className="new-expense__contorls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input 
-          type="text"
-          value={enteredTitle}   // for two way binding.
-          onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle} // for two way binding.
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Price</label>
@@ -134,7 +142,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.1"
             step="0.1"
-            value={enteredPrice}   // for two way binding.
+            value={enteredPrice} // for two way binding.
             onChange={priceChangeHandler}
           />
         </div>
@@ -144,7 +152,7 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
-            value={enteredDate}   // for two way binding.
+            value={enteredDate} // for two way binding.
             onChange={dateChangeHandler}
           />
         </div>
